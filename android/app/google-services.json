@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "890911574760",
+    "project_id": "sih2023-bf0a3",
+    "storage_bucket": "sih2023-bf0a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890911574760:android:104d1285b0a2e89d03175d",
+        "android_client_info": {
+          "package_name": "com.flutter.duolingo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt0LLDtn6HkrGqQ6sqpGyymowx3ix6Ecw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890911574760:android:0410e28e5cdf346003175d",
+        "android_client_info": {
+          "package_name": "com.rayole.lucky.dice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt0LLDtn6HkrGqQ6sqpGyymowx3ix6Ecw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890911574760:android:6dfe3d612a42d6ae03175d",
+        "android_client_info": {
+          "package_name": "com.sih.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt0LLDtn6HkrGqQ6sqpGyymowx3ix6Ecw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890911574760:android:10cb636fe3ad66a503175d",
+        "android_client_info": {
+          "package_name": "rayole.lucky.dice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890911574760-hkb80pgrffd9k7mimfe37sg5i06vohn4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rayole.lucky.dice",
+            "certificate_hash": "f2b809fa16c832360482f3381c49467594c5bd6a"
+          }
+        },
+        {
+          "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt0LLDtn6HkrGqQ6sqpGyymowx3ix6Ecw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
