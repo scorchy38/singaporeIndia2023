@@ -1,3 +1,4 @@
+import 'package:dicecash/services/ModulesData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
@@ -6,18 +7,30 @@ import '../../main.dart';
 import '../../provider/select_correct_image_game.dart';
 import '../modules/start_game.dart';
 
-class SelectCorrectImageGame extends StatelessWidget {
+class SelectCorrectImageGame extends StatefulWidget {
   const SelectCorrectImageGame({
     Key? key,
-    // required this.selected,
+    required this.questionsDetails,
+    required this.moduleAndChapterName,
+    required this.chapterIndex,
+    required this.moduleName,
     required this.values,
     required this.answer,
   }) : super(key: key);
 
-  // final String? selected;
+  final List<Map> questionsDetails;
+  final String moduleAndChapterName;
+  final int chapterIndex;
+  final String moduleName;
   final List<String> values;
   final String answer;
 
+  @override
+  State<SelectCorrectImageGame> createState() => _SelectCorrectImageGameState();
+}
+
+class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,6 +38,86 @@ class SelectCorrectImageGame extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.arrow_back_rounded,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    // Linear Progress Indicator
+                    Stack(
+                      alignment: AlignmentDirectional.centerStart,
+                      children: [
+                        FancyButton(
+                          child: Container(
+                            height: 12,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          size: 6,
+                          circle: true,
+                          color: Colors.grey,
+                        ),
+                        FancyButton(
+                          child: Container(
+                            height: 14,
+                            width: MediaQuery.of(context).size.width *
+                                0.8 *
+                                (currentIndex) /
+                                widget.questionsDetails.length,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 70, 222, 75),
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          size: 10,
+                          circle: true,
+                          color: const Color.fromARGB(255, 70, 222, 75),
+                        )
+                        // Container(
+                        //   height: 12,
+                        //   width: MediaQuery.of(context).size.width * 0.8,
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.grey,
+                        //       borderRadius: BorderRadius.circular(12)),
+                        // ),
+                        // Container(
+                        //   height: 14,
+                        //   width:
+                        //       MediaQuery.of(context).size.width * 0.7 * (0.5),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.blue,
+                        //     borderRadius: BorderRadius.circular(12),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topCenter,
+                        //       end: Alignment.bottomCenter,
+                        //       colors: [
+                        //         Color.fromARGB(255, 70, 222, 75),
+                        //         // Colors.green.shade400,
+                        //         Colors.green.shade300,
+                        //         // Colors.green.shade100,
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -51,12 +144,12 @@ class SelectCorrectImageGame extends StatelessWidget {
                   width: 12,
                 ),
                 Tooltip(
-                  message: "Sushi",
+                  message: widget.questionsDetails[currentIndex]['name'],
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Su shi",
+                        widget.questionsDetails[currentIndex]['name'],
                         style: TextStyle(
                             color: Color.fromARGB(255, 214, 119, 231)),
                       ),
@@ -85,15 +178,16 @@ class SelectCorrectImageGame extends StatelessWidget {
                       CustomBorderedButton(
                           selected: context.watch<ImageSelect>().selected,
                           onpressed: () {
-                            context
-                                .read<ImageSelect>()
-                                .changeSelected(values[0]);
+                            context.read<ImageSelect>().changeSelected(widget
+                                .questionsDetails[currentIndex]['option1']);
                           },
-                          name: values[0],
+                          name: widget.questionsDetails[currentIndex]
+                              ['option1'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              "assets/water.png",
+                              widget.questionsDetails[currentIndex]
+                                  ['option1Image'],
                               // height: 100,
                               // width: 100,
                             ),
@@ -101,15 +195,16 @@ class SelectCorrectImageGame extends StatelessWidget {
                       CustomBorderedButton(
                           selected: context.watch<ImageSelect>().selected,
                           onpressed: () {
-                            context
-                                .read<ImageSelect>()
-                                .changeSelected(values[1]);
+                            context.read<ImageSelect>().changeSelected(widget
+                                .questionsDetails[currentIndex]['option2']);
                           },
-                          name: values[1],
+                          name: widget.questionsDetails[currentIndex]
+                              ['option2'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              "assets/sushi.png",
+                              widget.questionsDetails[currentIndex]
+                                  ['option2Image'],
                               // height: 100,
                               // width: 100,
                             ),
@@ -117,15 +212,16 @@ class SelectCorrectImageGame extends StatelessWidget {
                       CustomBorderedButton(
                           selected: context.watch<ImageSelect>().selected,
                           onpressed: () {
-                            context
-                                .read<ImageSelect>()
-                                .changeSelected(values[2]);
+                            context.read<ImageSelect>().changeSelected(widget
+                                .questionsDetails[currentIndex]['option3']);
                           },
-                          name: values[2],
+                          name: widget.questionsDetails[currentIndex]
+                              ['option3'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              "assets/rice.png",
+                              widget.questionsDetails[currentIndex]
+                                  ['option3Image'],
                               // height: 100,
                               // width: 100,
                             ),
@@ -133,15 +229,16 @@ class SelectCorrectImageGame extends StatelessWidget {
                       CustomBorderedButton(
                           selected: context.watch<ImageSelect>().selected,
                           onpressed: () {
-                            context
-                                .read<ImageSelect>()
-                                .changeSelected(values[3]);
+                            context.read<ImageSelect>().changeSelected(widget
+                                .questionsDetails[currentIndex]['option4']);
                           },
-                          name: values[3],
+                          name: widget.questionsDetails[currentIndex]
+                              ['option4'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              "assets/tea.png",
+                              widget.questionsDetails[currentIndex]
+                                  ['option4Image'],
                               // height: 100,
                               // width: 100,
                             ),
@@ -191,7 +288,9 @@ class SelectCorrectImageGame extends StatelessWidget {
                               .selected!
                               .trim()
                               .toLowerCase() ==
-                          answer.trim().toLowerCase();
+                          widget.questionsDetails[currentIndex]['answer']
+                              .trim()
+                              .toLowerCase();
                       showModalBottomSheet<void>(
                         context: context,
                         isDismissible: false,
@@ -236,7 +335,7 @@ class SelectCorrectImageGame extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: Text(
-                                    "Correct Answer:\n $answer",
+                                    "Correct Answer:\n ${widget.questionsDetails[currentIndex]['answer']}",
                                     // textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color:
@@ -271,6 +370,31 @@ class SelectCorrectImageGame extends StatelessWidget {
                                           : Colors.red,
                                       onPressed: () {
                                         if (correct) {
+                                          setState(() {
+                                            if (currentIndex ==
+                                                widget.questionsDetails.length -
+                                                    1) {
+                                              modulesDataChangeNotifier
+                                                  .unlockNextChapter(
+                                                      widget.chapterIndex + 1,
+                                                      widget.moduleName);
+                                              print(modulesDataChangeNotifier
+                                                  .chaptersData);
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            } else {
+                                              modulesDataChangeNotifier
+                                                  .setQuestionToAnswered(
+                                                      widget
+                                                          .moduleAndChapterName,
+                                                      currentIndex);
+                                              print(modulesDataChangeNotifier
+                                                      .questions![
+                                                  widget.moduleAndChapterName]);
+                                              currentIndex++;
+                                              Navigator.pop(context);
+                                            }
+                                          });
                                         } else {
                                           Navigator.pop(context);
                                         }

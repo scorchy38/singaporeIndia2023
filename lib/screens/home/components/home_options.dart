@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:dicecash/screens/game/components/main_game.dart';
 import 'package:dicecash/screens/modules/modules_screen.dart';
 import 'package:dicecash/screens/surveys/components/item_tile.dart';
+import 'package:dicecash/services/ModulesData.dart';
 import 'package:dicecash/services/current_user_change_notifier.dart';
 import 'package:dicecash/services/data_streams/user_stream.dart';
 import 'package:dicecash/services/database/user_database_helper.dart';
@@ -17,6 +18,7 @@ import '../../profile/components/leaderboard.dart';
 import '../../profile/components/refer_earn.dart';
 import '../../surveys/surveys.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
+import 'package:dicecash/services/ModulesData.dart';
 
 class HomeOptions extends StatefulWidget {
   const HomeOptions({
@@ -29,11 +31,599 @@ class HomeOptions extends StatefulWidget {
 
 class _HomeOptionsState extends State<HomeOptions> {
   final UserStream userStream = UserStream();
+
   @override
   void initState() {
     generateFourNumbers();
     getRatedStatusNow();
-
+    modulesDataChangeNotifier.setModules([
+      {
+        'name': 'Unit 1',
+        'topic': 'The Money Mindset. Money 101',
+        'coursesUnlocked': 1,
+        'theoryLink': 'https://www.google.com'
+      },
+      {
+        'name': 'Unit 2',
+        'topic': 'Wealth Building, Independence',
+        'coursesUnlocked': 1,
+        'theoryLink': 'https://www.google.com'
+      }
+    ]);
+    modulesDataChangeNotifier.setChapters({
+      'The Money Mindset. Money 101': [
+        {
+          'name': 'Chapter 1',
+          'index': 0,
+          'unlocked': true,
+        },
+        {
+          'name': 'Chapter 2',
+          'index': 1,
+          'unlocked': false,
+        },
+        {
+          'name': 'Chapter 3',
+          'index': 2,
+          'unlocked': false,
+        },
+        {
+          'name': 'Chapter 4',
+          'index': 3,
+          'unlocked': false,
+        },
+        {
+          'name': 'Chapter 5',
+          'index': 4,
+          'unlocked': false,
+        },
+      ],
+      'Wealth Building, Independence': [
+        {
+          'name': 'Chapter 1',
+          'index': 0,
+          'unlocked': true,
+        },
+        {
+          'name': 'Chapter 2',
+          'index': 1,
+          'unlocked': false,
+        },
+        {
+          'name': 'Chapter 3',
+          'index': 2,
+          'unlocked': false,
+        },
+      ]
+    });
+    modulesDataChangeNotifier.setQuestions({
+      'The Money Mindset. Money 101 Chapter 1': [
+        {
+          'name': 'Su shi',
+          'index': 0,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Trophy',
+          'index': 1,
+          'unlocked': false,
+          'option1': 'Trophy',
+          'option1Image': 'assets/images/board.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Trophy',
+          'answerImage': 'assets/images/board.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 3,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 4,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'The Money Mindset. Money 101 Chapter 2': [
+        {
+          'name': 'Su shi',
+          'index': 0,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 1,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 3,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 4,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'The Money Mindset. Money 101 Chapter 3': [
+        {
+          'name': 'Su shi',
+          'index': 0,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 1,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 3,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 4,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'The Money Mindset. Money 101 Chapter 4': [
+        {
+          'name': 'Su shi',
+          'index': 0,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 1,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 3,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 4,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'The Money Mindset. Money 101 Chapter 5': [
+        {
+          'name': 'Su shi',
+          'index': 0,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 1,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 3,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'index': 4,
+          'unlocked': false,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'Wealth Building, Independence Chapter 1': [
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 0,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 1,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'Wealth Building, Independence Chapter 2': [
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 0,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 1,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ],
+      'Wealth Building, Independence Chapter 3': [
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 0,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 1,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        },
+        {
+          'name': 'Su shi',
+          'unlocked': false,
+          'index': 2,
+          'option1': 'Water',
+          'option1Image': 'assets/water.png',
+          'option2': 'Sushi',
+          'option2Image': 'assets/sushi.png',
+          'option3': 'Rice',
+          'option3Image': 'assets/rice.png',
+          'option4': 'Tea',
+          'option4Image': 'assets/tea.png',
+          'answer': 'Sushi',
+          'answerImage': 'assets/water.png'
+        }
+      ]
+    });
     initPollfish();
 
     currentUserChangeNotifier.setCurrentUser(true);
@@ -46,7 +636,6 @@ class _HomeOptionsState extends State<HomeOptions> {
     userStream.dispose();
     super.dispose();
   }
-
 
   String _logText = '';
 
@@ -61,7 +650,6 @@ class _HomeOptionsState extends State<HomeOptions> {
     _completedSurvey = false;
 
     final offerwallMode = _currentIndex == 2;
-
 
     setState(() {
       _logText = logText;
@@ -155,9 +743,9 @@ class _HomeOptionsState extends State<HomeOptions> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18.0, vertical: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -165,11 +753,15 @@ class _HomeOptionsState extends State<HomeOptions> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6
-                                ?.copyWith(color: AppColors.primary, fontSize: 20, fontWeight: FontWeight.bold)),
+                                ?.copyWith(
+                                    color: AppColors.primary,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
                         Container(
                           width: 60,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(7)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
                               color: AppColors.primary),
                           child: InkWell(
                             onTap: () {
@@ -187,9 +779,9 @@ class _HomeOptionsState extends State<HomeOptions> {
                                         .textTheme
                                         .headline6
                                         ?.copyWith(
-                                        color: Colors.white,
-                                        fontSize: 14.5,
-                                        fontWeight: FontWeight.bold)),
+                                            color: Colors.white,
+                                            fontSize: 14.5,
+                                            fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ),
@@ -212,29 +804,33 @@ class _HomeOptionsState extends State<HomeOptions> {
                                 'Money Basics',
                                 'Mindset, Wealth Building',
                                 'assets/images/money.png', () {
-                                     null;
+                                null;
                               })
                             : SurveyTile(
-                            'Money Basics',
-                            'Mindset, Wealth Building',
-                            'assets/images/money.png', () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ModulesScreen()));
-                        }),
+                                'Money Basics',
+                                'Mindset, Wealth Building',
+                                'assets/images/money.png', () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ModulesScreen()));
+                              }),
                         n2 == 2
-                            ? SurveyTile('Plan Retirement', 'Insurance, Children',
+                            ? SurveyTile(
+                                'Plan Retirement',
+                                'Insurance, Children',
                                 'assets/images/retire.png', () {
                                 _launchURL(context,
                                     'https://surveywall.wannads.com?apiKey=62977e52beb71489487945&userId=vkumarsaraswat@gmail.com');
                               })
-                            : SurveyTile('Plan Retirement', 'Insurance, Children',
+                            : SurveyTile(
+                                'Plan Retirement',
+                                'Insurance, Children',
                                 'assets/images/retire.png', () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ModulesScreen()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ModulesScreen()));
                               }),
                         // n3 == 3
                         //     ? SurveyTile('Admantum ', 'Get Upto 15000 Gold',
@@ -265,7 +861,6 @@ class _HomeOptionsState extends State<HomeOptions> {
                       ],
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: AppDefaults.padding - 2),
@@ -295,9 +890,7 @@ class _HomeOptionsState extends State<HomeOptions> {
                             print(1);
                             isRewardedVideoAvailable = false;
 
-
                             if (isRewardedVideoAvailable!) {
-
                             } else {
                               Fluttertoast.showToast(
                                   msg: 'Reward video not available!');
@@ -345,7 +938,6 @@ class _HomeOptionsState extends State<HomeOptions> {
                           ),
                         )
                       : Container(),
-
                   SizedBox(
                     height: 30,
                   ),
@@ -563,7 +1155,6 @@ class _HomeOptionsState extends State<HomeOptions> {
       ),
     );
   }
-
 
   Future<bool?> getRatingStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -7,7 +7,13 @@ import '../games/select_correct_image.dart';
 import 'modules_screen.dart';
 
 class StartGameScreen extends StatefulWidget {
-  const StartGameScreen({key});
+  const StartGameScreen(this.questionsDetails, this.moduleAndChapterName,
+      this.chapterIndex, this.moduleName,
+      {key});
+  final List<Map> questionsDetails;
+  final String moduleAndChapterName;
+  final String moduleName;
+  final int chapterIndex;
 
   @override
   State<StartGameScreen> createState() => _StartGameScreenState();
@@ -32,88 +38,95 @@ class _StartGameScreenState extends State<StartGameScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SizedBox(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_rounded,
-                        size: 40,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // Linear Progress Indicator
-                    Stack(
-                      alignment: AlignmentDirectional.centerStart,
-                      children: [
-                        FancyButton(
-                          child: Container(
-                            height: 12,
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          size: 6,
-                          circle: true,
-                          color: Colors.grey,
-                        ),
-                        FancyButton(
-                          child: Container(
-                            height: 14,
-                            width:
-                                MediaQuery.of(context).size.width * 0.7 * (0.5),
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 70, 222, 75),
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          size: 10,
-                          circle: true,
-                          color: const Color.fromARGB(255, 70, 222, 75),
-                        )
-                        // Container(
-                        //   height: 12,
-                        //   width: MediaQuery.of(context).size.width * 0.8,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.grey,
-                        //       borderRadius: BorderRadius.circular(12)),
-                        // ),
-                        // Container(
-                        //   height: 14,
-                        //   width:
-                        //       MediaQuery.of(context).size.width * 0.7 * (0.5),
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.blue,
-                        //     borderRadius: BorderRadius.circular(12),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topCenter,
-                        //       end: Alignment.bottomCenter,
-                        //       colors: [
-                        //         Color.fromARGB(255, 70, 222, 75),
-                        //         // Colors.green.shade400,
-                        //         Colors.green.shade300,
-                        //         // Colors.green.shade100,
-                        //       ],
-                        //     ),
-                        //   ),
-                        // )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(4.0),
+            //   child: SizedBox(
+            //     height: 40,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       children: [
+            //         InkWell(
+            //           onTap: () {
+            //             Navigator.pop(context);
+            //           },
+            //           child: const Icon(
+            //             Icons.arrow_back_rounded,
+            //             size: 40,
+            //             color: Colors.grey,
+            //           ),
+            //         ),
+            //         // Linear Progress Indicator
+            //         Stack(
+            //           alignment: AlignmentDirectional.centerStart,
+            //           children: [
+            //             FancyButton(
+            //               child: Container(
+            //                 height: 12,
+            //                 width: MediaQuery.of(context).size.width * 0.8,
+            //                 decoration: BoxDecoration(
+            //                     color: Colors.grey,
+            //                     borderRadius: BorderRadius.circular(12)),
+            //               ),
+            //               size: 6,
+            //               circle: true,
+            //               color: Colors.grey,
+            //             ),
+            //             FancyButton(
+            //               child: Container(
+            //                 height: 14,
+            //                 width:
+            //                     MediaQuery.of(context).size.width * 0.7 * (0.5),
+            //                 decoration: BoxDecoration(
+            //                     color: const Color.fromARGB(255, 70, 222, 75),
+            //                     borderRadius: BorderRadius.circular(12)),
+            //               ),
+            //               size: 10,
+            //               circle: true,
+            //               color: const Color.fromARGB(255, 70, 222, 75),
+            //             )
+            //             // Container(
+            //             //   height: 12,
+            //             //   width: MediaQuery.of(context).size.width * 0.8,
+            //             //   decoration: BoxDecoration(
+            //             //       color: Colors.grey,
+            //             //       borderRadius: BorderRadius.circular(12)),
+            //             // ),
+            //             // Container(
+            //             //   height: 14,
+            //             //   width:
+            //             //       MediaQuery.of(context).size.width * 0.7 * (0.5),
+            //             //   decoration: BoxDecoration(
+            //             //     color: Colors.blue,
+            //             //     borderRadius: BorderRadius.circular(12),
+            //             //     gradient: LinearGradient(
+            //             //       begin: Alignment.topCenter,
+            //             //       end: Alignment.bottomCenter,
+            //             //       colors: [
+            //             //         Color.fromARGB(255, 70, 222, 75),
+            //             //         // Colors.green.shade400,
+            //             //         Colors.green.shade300,
+            //             //         // Colors.green.shade100,
+            //             //       ],
+            //             //     ),
+            //             //   ),
+            //             // )
+            //           ],
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SelectCorrectImageGame(values: values, answer: answer),
+              child: SelectCorrectImageGame(
+                moduleAndChapterName: widget.moduleAndChapterName,
+                moduleName: widget.moduleName,
+                chapterIndex: widget.chapterIndex,
+                values: values,
+                answer: answer,
+                questionsDetails: widget.questionsDetails,
+              ),
               // child: ImageToTextGame(values: values, textcontroller: textcontroller, answer: answer),
               // child: Column(children: [
               //   Padding(
@@ -276,11 +289,13 @@ class ImageToTextGame extends StatelessWidget {
     required this.values,
     required this.textcontroller,
     required this.answer,
+    required this.chapterDetails,
   }) : super(key: key);
 
   final List<String> values;
   final TextEditingController textcontroller;
   final String answer;
+  final Map chapterDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -617,9 +632,9 @@ class _FancyButtonState extends State<FancyButton>
   @override
   Widget build(BuildContext context) {
     var vertPadding =
-    widget.circle == true ? widget.size * 0.25 : widget.size * 0.25;
+        widget.circle == true ? widget.size * 0.25 : widget.size * 0.25;
     var horzPadding =
-    widget.circle == true ? widget.size * 0.25 : widget.size * 0.50;
+        widget.circle == true ? widget.size * 0.25 : widget.size * 0.50;
     var radius = widget.circle == true
         ? BorderRadius.circular(1000)
         : BorderRadius.circular(horzPadding * 0.5);

@@ -37,6 +37,7 @@ dependencies:
   social_share: ^2.2.1
   logger: ^1.1.0
   stacked: ^3.4.1
+  webview_flutter: ^2.0.14
   stacked_services: ^1.2.0
   streaming_shared_preferences: ^2.0.0
   flutter_native_splash: ^2.1.6

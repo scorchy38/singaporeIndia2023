@@ -85,7 +85,7 @@ class UserData extends Model {
           : map[DOLLARS_KEY] * 1.0,
       rc: map[REFERRAL_CODE_KEY],
       age: map['age'],
-      deviceId: map['deviceId'],
+      deviceId: map['deviceId'] == null ? '' : map['deviceId'],
       userRank: map['userRank'],
       rated: map['rated'],
       uid: map['uid'],

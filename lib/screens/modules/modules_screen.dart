@@ -1,8 +1,11 @@
 import 'package:dicecash/main.dart';
 import 'package:dicecash/screens/modules/start_game.dart';
+import 'package:dicecash/services/ModulesData.dart';
+import 'package:dicecash/webview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class ModulesScreen extends StatefulWidget {
   const ModulesScreen({key});
@@ -13,18 +16,47 @@ class ModulesScreen extends StatefulWidget {
 
 class _ModulesScreenState extends State<ModulesScreen> {
   int completedChaps = 2;
+  List chapterData = [
+    {
+      'name': 'Unit 1',
+      'topic': 'The Money Mindset. Money 101',
+      'coursesUnlocked': 1,
+      'theoryLink': 'www.google.com'
+    },
+    {
+      'name': 'Unit 2',
+      'topic': 'Wealth Building, Independence',
+      'coursesUnlocked': 1,
+      'theoryLink': 'www.google.com'
+    },
+    {
+      'name': 'Unit 1',
+      'topic': 'The Money Mindset. Money 101',
+      'coursesUnlocked': 1,
+      'theoryLink': 'www.google.com'
+    }
+  ];
+
+  @override
+  void initState() {
+    print(modulesDataChangeNotifier.questions);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // List<Map> moduleDetails=modulesDataChangeNotifier.modulesData;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           elevation: 3,
           backgroundColor: Colors.white,
-          title: const Text("Money Basics💸", style: TextStyle(
-              color: Colors.blue,
-              fontSize: 22,
-              fontWeight: FontWeight.w700
-          ),),
+          title: const Text(
+            "Money Basics💸",
+            style: TextStyle(
+                color: Colors.blue, fontSize: 22, fontWeight: FontWeight.w700),
+          ),
           centerTitle: true,
           // leading: const Text(''),
           automaticallyImplyLeading: true,
@@ -40,17 +72,20 @@ class _ModulesScreenState extends State<ModulesScreen> {
             SizedBox(
               height: 20,
             ),
-
-            Expanded(
-              child: PageView.builder(
-                itemCount: 2,
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return pageViewCard(context, index);
-                },
-              ),
-            )
+            AnimatedBuilder(
+                animation: modulesDataChangeNotifier,
+                builder: (context, child) {
+                  return Expanded(
+                    child: PageView.builder(
+                      itemCount: modulesDataChangeNotifier.modulesData?.length,
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return pageViewCard(context, index);
+                      },
+                    ),
+                  );
+                })
           ],
         ),
       ),
@@ -73,22 +108,21 @@ class _ModulesScreenState extends State<ModulesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Unit ${index+1}",
+                        modulesDataChangeNotifier.modulesData?[index]['name'],
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 22,
-                            fontWeight: FontWeight.w700
-                        ),
+                            fontWeight: FontWeight.w700),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: Text(
-                          index == 0 ? "The Money Mindset, Money 101 " : "Wealth Building, Independence",
+                          modulesDataChangeNotifier.modulesData?[index]
+                              ['topic'],
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 16,
-                              fontWeight: FontWeight.w700
-                          ),
+                              fontWeight: FontWeight.w700),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -96,12 +130,26 @@ class _ModulesScreenState extends State<ModulesScreen> {
                     ],
                   ),
                 ),
-                BorderedContainer(
-                  color: Colors.blue,
-                  radius: 16,
-                  child: Icon(
-                    Icons.book,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => WebViewExample(
+                            url: modulesDataChangeNotifier.modulesData?[index]
+                                ['theoryLink'],
+                            moduleName: modulesDataChangeNotifier
+                                .modulesData?[index]['topic'],
+                          ),
+                        ));
+                  },
+                  child: BorderedContainer(
                     color: Colors.blue,
+                    radius: 16,
+                    child: Icon(
+                      Icons.book,
+                      color: Colors.blue,
+                    ),
                   ),
                 )
               ],
@@ -111,29 +159,77 @@ class _ModulesScreenState extends State<ModulesScreen> {
               child: Container(
                   width: double.maxFinite,
                   color: Colors.white,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        chapterCard(index: 0),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: chapterCard(
-                            alignment: Alignment.topLeft,
-                            index: 1,
-                          ),
-                        ),
-                        chapterCard(index: 2),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: chapterCard(
-                              alignment: Alignment.topRight, index: 3),
-                        ),
-                        chapterCard(index: 4),
-                      ],
+                  child: Center(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: modulesDataChangeNotifier.chaptersData![
+                                modulesDataChangeNotifier.modulesData?[index]
+                                    ['topic']]
+                            .map<Widget>((widgetMap) {
+                          print(modulesDataChangeNotifier.modulesData?[index]
+                                  ['topic'] +
+                              ' ' +
+                              widgetMap['name']);
+                          return widgetMap['index'] % 2 == 0
+                              ? Padding(
+                                  padding: const EdgeInsets.only(right: 40),
+                                  child: chapterCard(
+                                      modulesDataChangeNotifier.questions![
+                                          modulesDataChangeNotifier
+                                                      .modulesData?[index]
+                                                  ['topic'] +
+                                              ' ' +
+                                              widgetMap['name']],
+                                      modulesDataChangeNotifier
+                                              .modulesData?[index]['topic'] +
+                                          ' ' +
+                                          widgetMap['name'],
+                                      modulesDataChangeNotifier
+                                          .modulesData?[index]['topic'],
+                                      widgetMap['index'],
+                                      alignment: Alignment.topRight,
+                                      index: widgetMap['index'],
+                                      unlocked: widgetMap['unlocked']),
+                                )
+                              : chapterCard(
+                                  modulesDataChangeNotifier.questions![
+                                      modulesDataChangeNotifier
+                                              .modulesData?[index]['topic'] +
+                                          ' ' +
+                                          widgetMap['name']],
+                                  modulesDataChangeNotifier.modulesData?[index]
+                                          ['topic'] +
+                                      ' ' +
+                                      widgetMap['name'],
+                                  modulesDataChangeNotifier.modulesData?[index]
+                                      ['topic'],
+                                  widgetMap['index'],
+                                  index: widgetMap['index'],
+                                  unlocked: widgetMap['unlocked']);
+                        }).toList(),
+                        // [
+                        //   SizedBox(
+                        //     height: 10,
+                        //   ),
+                        //
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(left: 40),
+                        //     child: chapterCard(
+                        //       alignment: Alignment.topLeft,
+                        //       index: 1,
+                        //     ),
+                        //   ),
+                        //   chapterCard(index: 2),
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(right: 40),
+                        //     child: chapterCard(
+                        //         alignment: Alignment.topRight, index: 3),
+                        //   ),
+                        //   chapterCard(index: 4),
+                        // ],
+                      ),
                     ),
                   ))),
           Container(
@@ -150,7 +246,14 @@ class _ModulesScreenState extends State<ModulesScreen> {
   }
 
   Align chapterCard(
-      {AlignmentGeometry alignment = Alignment.center, int index = 0}) {
+    List<Map> questionsDetails,
+    String moduleAndChapterName,
+    String moduleName,
+    int chapterIndex, {
+    AlignmentGeometry alignment = Alignment.center,
+    int index = 0,
+    bool unlocked = false,
+  }) {
     return Align(
       alignment: alignment,
       child: Padding(
@@ -159,7 +262,7 @@ class _ModulesScreenState extends State<ModulesScreen> {
           alignment: AlignmentDirectional.center,
           children: [
             Visibility(
-              visible: index <= completedChaps,
+              visible: unlocked,
               child: const SizedBox(
                 height: 75,
                 width: 75,
@@ -173,13 +276,17 @@ class _ModulesScreenState extends State<ModulesScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: index <= completedChaps
+              child: unlocked
                   ? FancyButton(
                       onPressed: () {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => const StartGameScreen(),
+                              builder: (context) => StartGameScreen(
+                                  questionsDetails,
+                                  moduleAndChapterName,
+                                  chapterIndex,
+                                  moduleName),
                             ));
                       },
                       child: Icon(
