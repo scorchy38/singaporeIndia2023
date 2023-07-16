@@ -1,4 +1,4 @@
-# dicecash
+# singapore india hackathon
 
 A new Flutter project.
 
