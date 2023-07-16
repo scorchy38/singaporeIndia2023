@@ -14,7 +14,7 @@ class GPTService {
       url,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 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"
+        "Authorization": "Bearer <API Key>"
       },
       body: body,
     );
