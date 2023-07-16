@@ -31,6 +31,7 @@ class UserData extends Model {
   String uid;
   int userRank;
   String dpUrl;
+  String wyd;
 
   UserData({
     required String? id,
@@ -50,6 +51,7 @@ class UserData extends Model {
     required this.uid,
     required this.userRank,
     required this.dpUrl,
+    required this.wyd,
   }) : super(id!);
 
   factory UserData.fromMap(Map<String, dynamic>? map,
@@ -94,6 +96,7 @@ class UserData extends Model {
       activated: map['activated'],
       token: map['fcm_token'],
       adSeen: map['adSeen'],
+      wyd: map['wyd'] == null ? '' : map['wyd'],
     );
   }
 
@@ -116,6 +119,7 @@ class UserData extends Model {
       'activated': activated,
       'fcm_token': token,
       'adSeen': adSeen,
+      'wyd': wyd,
     };
 
     return map;
@@ -140,6 +144,7 @@ class UserData extends Model {
     map['activated'] = activated;
     map['token'] = token;
     map['adSeen'] = adSeen;
+    map['wyd'] = wyd;
 
     return map;
   }

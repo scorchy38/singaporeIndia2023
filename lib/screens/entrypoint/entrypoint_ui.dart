@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:dicecash/core/constants/app_colors.dart';
+import 'package:dicecash/screens/plan/planning_screen.dart';
 import 'package:dicecash/screens/profile/components/leaderboard.dart';
 import 'package:dicecash/services/database/user_database_helper.dart';
 import 'package:dicecash/wrappers/authentication_wrapper.dart';
@@ -142,9 +143,10 @@ class _EntryPointUIState extends State<EntryPointUI> {
   final List<Widget> _screens = [
     const HomePage(),
     FeedScreen(key: GlobalKey(debugLabel: 'sss'),),
-    const Leaderboard(),
+    // const Leaderboard(),
     const OrderPage(),
-    const ProfilePage(),
+    const PlanningScreeen(),
+    // const ProfilePage(),
   ];
 
   @override
@@ -178,15 +180,23 @@ class _EntryPointUIState extends State<EntryPointUI> {
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(FontAwesomeIcons.dice,
+                child: Icon(FontAwesomeIcons.video,
                     color: _currentPage == 1 ? AppColors.primary : Colors.grey),
               ),
               label: '',
             ),
+            // BottomNavigationBarItem(
+            //   icon: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Icon(FontAwesomeIcons.trophy,
+            //         color: _currentPage == 2 ? AppColors.primary : Colors.grey),
+            //   ),
+            //   label: '',
+            // ),
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(FontAwesomeIcons.trophy,
+                child: Icon(FontAwesomeIcons.checkSquare,
                     color: _currentPage == 2 ? AppColors.primary : Colors.grey),
               ),
               label: '',
@@ -194,19 +204,19 @@ class _EntryPointUIState extends State<EntryPointUI> {
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(FontAwesomeIcons.checkSquare,
+                child: Icon(FontAwesomeIcons.calendar,
                     color: _currentPage == 3 ? AppColors.primary : Colors.grey),
               ),
               label: '',
             ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(FontAwesomeIcons.user,
-                    color: _currentPage == 4 ? AppColors.primary : Colors.grey),
-              ),
-              label: '',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Icon(FontAwesomeIcons.user,
+            //         color: _currentPage == 5 ? AppColors.primary : Colors.grey),
+            //   ),
+            //   label: '',
+            // ),
           ],
         ),
       );

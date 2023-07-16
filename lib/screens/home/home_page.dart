@@ -1,6 +1,9 @@
 import 'package:dicecash/core/constants/app_colors.dart';
 import 'package:dicecash/screens/home/components/home_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../models/notifications.dart';
@@ -147,6 +150,7 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: showExitPopup,
       child: Scaffold(
+        floatingActionButton: _getFAB(),
         backgroundColor: AppColors.background.withOpacity(0.8),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -167,6 +171,54 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+  Widget _getFAB() {
+    return SpeedDial(
+
+      animatedIcon: AnimatedIcons.view_list,
+      animatedIconTheme: IconThemeData(size: 22),
+      backgroundColor: Colors.blue,
+      visible: true,
+      curve: Curves.bounceIn,
+      children: [
+        // FAB 1
+        SpeedDialChild(
+            child: Icon(FontAwesomeIcons.whatsapp, color: Colors.white,),
+            backgroundColor: Colors.blue,
+            onTap: () {launchUrl(Uri.parse('https://api.whatsapp.com/send/?phone=15106947910&text=Hi,%20I%20have%20questions%20related%20to%20some%20questions%20related%20to%20finance%20today!&app_absent=0')); },
+            label: 'Ask SheFi Assist',
+            labelStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+                fontSize: 16.0),
+            ),
+        // FAB 2
+        SpeedDialChild(
+            child: Icon(FontAwesomeIcons.userGroup, color: Colors.white,),
+            backgroundColor: Colors.blue,
+            onTap: () {
+              launchUrl(Uri.parse('https://chat.whatsapp.com/IKiXDlRzqxHJwkDfAGhKwU'));
+            },
+            label: 'Join Community',
+            labelStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+                fontSize: 16.0),
+            ),
+        SpeedDialChild(
+            child: Icon(FontAwesomeIcons.phone, color: Colors.white),
+            backgroundColor: Colors.blue,
+            onTap: () {
+              launchUrl(Uri.parse('tel:+16402255726'));
+            },
+            label: 'Call She-Fi Assist',
+            labelStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.blue,
+                fontSize: 16.0),
+            ),
+      ],
     );
   }
 }

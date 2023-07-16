@@ -19,7 +19,10 @@ import 'app/app.locator.dart';
 import 'core/themes/app_themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'languages/local_constants.dart';
+import 'languages/localizations_delegate.dart';
 import 'models/User.dart';
 
 StreamingSharedPreferences? preferences;
@@ -41,17 +44,62 @@ void main() async {
   ], child: MyApp()),);
 
 }
+Locale locale = Locale('en');
+// Keep the selected Locale in your state
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  static void setLocale(BuildContext context, Locale newLocale) {
+    var state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = Locale("en");
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  void didChangeDependencies() async {
+    getLocale().then((locale) {
+      setState(() {
+        _locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     // AuthenticationService().signOut();
-
     return MaterialApp(
-      title: 'SheFi',
-      theme: AppThemes.light,
-      home: const AuthenticationWrapper(),
+      locale: _locale,
+      supportedLocales: [Locale('en', ''), Locale('hi', '')],
+      localizationsDelegates: [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale?.languageCode == locale?.languageCode &&
+              supportedLocale?.countryCode == locale?.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales?.first;
+      },
+    title: 'SheFi',
+    theme: AppThemes.light,
+    home: const AuthenticationWrapper(),
     );
   }
 }

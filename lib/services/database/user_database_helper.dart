@@ -117,7 +117,7 @@ class UserDatabaseHelper {
           uid: '',
           userRank: 0,
           // update: false,
-          id: '');
+          id: '', wyd: '');
     }
     final doc =
         await firestore?.collection(USERS_COLLECTION_NAME).doc(email).get();
@@ -141,7 +141,7 @@ class UserDatabaseHelper {
           uid: '',
           userRank: 0,
           // update: false,
-          id: '');
+          id: '', wyd: '');
     user = UserData.fromMap(doc?.data(), id: doc?.id);
 
     return user;
@@ -480,6 +480,15 @@ class UserDatabaseHelper {
         ?.collection(USERS_COLLECTION_NAME)
         .doc(email)
         .update({'age': int.parse(age), UserData.NAME_KEY: name});
+    // await refreshUserData();
+  }
+
+  updateUserData2(String name, String age, String wyd) async {
+    String? email = AuthenticationService().currentUser?.email;
+    final doc = await firestore
+        ?.collection(USERS_COLLECTION_NAME)
+        .doc(email)
+        .update({'age': int.parse(age), UserData.NAME_KEY: name, 'wyd': wyd});
     // await refreshUserData();
   }
 

@@ -46,12 +46,7 @@ class _LoginReferralPageState extends State<LoginReferralPage> {
                 height: 150,
               ),
               const SizedBox(height: 8),
-              Text('Lucky Dice',
-                  style: Theme.of(context).textTheme.headline6?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 24,
-                      letterSpacing: 2)),
+
               const SizedBox(height: 40),
               Text('Enter the Referral Code',
                   style: Theme.of(context).textTheme.headline6?.copyWith(

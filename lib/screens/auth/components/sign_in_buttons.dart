@@ -47,7 +47,7 @@ class SignUpWithGoogleButton extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: AppColors.purple,
+              color: AppColors.primary,
               boxShadow: [BoxShadow(blurRadius: 1)]),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

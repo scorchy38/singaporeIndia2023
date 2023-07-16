@@ -56,7 +56,7 @@ class _ReferEarnState extends State<ReferEarn> {
                           SizedBox(
                             height: 30,
                           ),
-                          Text("Invite your friends and get \$0.01",
+                          Text("Invite your friends and get \$2",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -71,7 +71,7 @@ class _ReferEarnState extends State<ReferEarn> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Text(
-                              "Share the code below and ask them to enter it while they sign up. Earn \$0.01 when your friend signs up. Your friend also gets \$0.02!",
+                              "Share the code below and ask them to enter it while they sign up. Earn incentives upto \$2 when your friend signs up. Your friend also gets some incentives!",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6

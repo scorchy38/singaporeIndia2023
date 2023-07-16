@@ -1,13 +1,17 @@
 import 'package:dicecash/core/constants/app_colors.dart';
 import 'package:dicecash/screens/auth/components/login_referral.dart';
+import 'package:dicecash/screens/profile/components/create_profile.dart';
 import 'package:dicecash/services/current_user_change_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dicecash/screens/entrypoint/entrypoint_ui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:future_progress_dialog/future_progress_dialog.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../exceptions/firebaseauth/messeged_firebaseauth_exception.dart';
 import '../../exceptions/firebaseauth/signin_exceptions.dart';
+import '../../languages/languages.dart';
+import '../../languages/local_constants.dart';
 import '../../main.dart';
 import '../../services/authentication/authentication_service.dart';
 import '../../services/database/user_database_helper.dart';
@@ -58,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 40),
               SignInButtons(
                 onSignupWithGoogle: () => signInButtonCallback(),
-                text: 'Enter the World of Rewards With Google',
+                text: (Languages.of(context)?.login)!,
               ),
               const SizedBox(height: 12),
               InkWell(
@@ -68,12 +72,38 @@ class _LoginPageState extends State<LoginPage> {
                       MaterialPageRoute(
                           builder: (context) => LoginReferralPage()));
                 },
-                child: Text('Have a referral code?',
+                child: Text((Languages.of(context)?.referral)!,
                     style: Theme.of(context).textTheme.headline6?.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.normal,
                           fontSize: 16,
                         )),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() async {
+                    var locale = await getLocale();
+                    print(locale.languageCode);
+                    locale.languageCode == 'hi'
+                        ? changeLanguage(context, 'en')
+                        : changeLanguage(context, 'hi');
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text((Languages.of(context)?.labelSelectLanguage)!,
+                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                            )),
+                    Icon(FontAwesomeIcons.language, color: Colors.blue,)
+                  ],
+                ),
               ),
               const Spacer(),
             ],
@@ -114,6 +144,8 @@ class _LoginPageState extends State<LoginPage> {
       if (signInStatus == true) {
         snackMessage = "Signed In Successfully";
         print("Signed In Successfully");
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const CreateProfile()));
       } else {
         print("Sign In Unsuccessfully");
         throw FirebaseSignInAuthUnknownReasonFailure();

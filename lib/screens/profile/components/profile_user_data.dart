@@ -268,15 +268,15 @@ class _UserDataPageState extends State<UserDataPage> {
                           //   height: 10,
                           // ),
                           // ),
-                          user?.activated == true
-                              ? profileOption(() {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Wallet()));
-                                }, EvaIcons.creditCardOutline, '   Wallet')
-                              : Container(),
+                          // user?.activated == true
+                          //     ? profileOption(() {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     const Wallet()));
+                          //       }, EvaIcons.creditCardOutline, '   Wallet')
+                          //     : Container(),
                           user?.activated == true
                               ? profileOption(() {
                                   Navigator.push(

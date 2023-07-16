@@ -63,7 +63,7 @@ class _LeaderboardState extends State<Leaderboard> {
   }
 
   Timer? _timer;
-  int _start = 0;
+  int _start = 3000;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -121,7 +121,7 @@ class _LeaderboardState extends State<Leaderboard> {
                           AppColors.primary,
                           userDet!.activated == false
                               ? ''
-                              : 'Prize Pool of \$4 !️️',
+                              : 'This Week\'s First \nPlace Reward: \nSmall Business Loans \nat just 6% Interest !️️',
                           'Ends in: ${(_start ~/ 3600)}h ${((_start - (_start ~/ 3600) * 3600)) ~/ 60}m ${_start - ((_start ~/ 3600) * 3600) - ((((_start - (_start ~/ 3600) * 3600)) ~/ 60) * 60)}s ',
                           'Go Now',
                           'assets/images/board.png',
@@ -239,7 +239,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                   fontSize: 18,
                                 )),
                           ),
-                          (rank >= 0 && rank <= 9) && showAmount
+                          (rank >= 0 && rank <= 9) && false
                               ? Text('\$ ${rew[rank + 1]}',
                                   style: TextStyle(
                                     color: Colors.grey,
@@ -260,14 +260,14 @@ class _LeaderboardState extends State<Leaderboard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('$gold',
+                    Text('${(1/(rank+1)*540)}',
                         style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                         )),
                     //🥇
-                    Text('Total Gold',
+                    Text('Total Points',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

@@ -37,6 +37,7 @@ class _WebViewExampleState extends State<WebViewExample> {
         ),
         automaticallyImplyLeading: true,
       ),
+      // body: Container(),
       body: WebView(
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted, // Enable JavaScript

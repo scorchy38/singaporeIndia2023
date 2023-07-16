@@ -135,8 +135,8 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                       size: 25,
                       onPressed: () async {
                         FlutterTts flutterTts = FlutterTts();
-                        await flutterTts.setLanguage("ja");
-                        await flutterTts.speak("すし");
+                        await flutterTts.setLanguage("en");
+                        await flutterTts.speak(widget.questionsDetails[currentIndex]['name']);
                       },
                       color: Colors.blue.shade300),
                 ),
@@ -148,16 +148,22 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        widget.questionsDetails[currentIndex]['name'],
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 214, 119, 231)),
+                      Container(
+                        width: 290,
+                        child: Text(
+                          widget.questionsDetails[currentIndex]['name'],
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 214, 119, 231)),
+                          maxLines: 2,
+                          softWrap: true,
+
+                        ),
                       ),
-                      Text(
-                        "はい ",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 214, 119, 231)),
-                      )
+                      // Text(
+                      //   "はい ",
+                      //   style: TextStyle(
+                      //       color: Color.fromARGB(255, 214, 119, 231)),
+                      // )
                     ],
                   ),
                 ),
@@ -185,11 +191,18 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                               ['option1'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              widget.questionsDetails[currentIndex]
-                                  ['option1Image'],
-                              // height: 100,
-                              // width: 100,
+                            child: Center(
+                              child: Text(
+                                widget.questionsDetails[currentIndex]
+                                    ['option1'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                    color: Colors.blue
+                                ),
+                                // height: 100,
+                                // width: 100,
+                              ),
                             ),
                           )),
                       CustomBorderedButton(
@@ -202,11 +215,18 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                               ['option2'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              widget.questionsDetails[currentIndex]
-                                  ['option2Image'],
-                              // height: 100,
-                              // width: 100,
+                            child: Center(
+                              child: Text(
+                                widget.questionsDetails[currentIndex]
+                                    ['option2'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                    color: Colors.blue
+                                ),
+                                // height: 100,
+                                // width: 100,
+                              ),
                             ),
                           )),
                       CustomBorderedButton(
@@ -219,11 +239,18 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                               ['option3'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              widget.questionsDetails[currentIndex]
-                                  ['option3Image'],
-                              // height: 100,
-                              // width: 100,
+                            child: Center(
+                              child: Text(
+                                widget.questionsDetails[currentIndex]
+                                    ['option3'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                    color: Colors.blue
+                                ),
+                                // height: 100,
+                                // width: 100,
+                              ),
                             ),
                           )),
                       CustomBorderedButton(
@@ -236,11 +263,18 @@ class _SelectCorrectImageGameState extends State<SelectCorrectImageGame> {
                               ['option4'],
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              widget.questionsDetails[currentIndex]
-                                  ['option4Image'],
-                              // height: 100,
-                              // width: 100,
+                            child:Center(
+                              child: Text(
+                                widget.questionsDetails[currentIndex]
+                                    ['option4'],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                  color: Colors.blue
+                                ),
+                                // height: 100,
+                                // width: 100,
+                              ),
                             ),
                           )),
                     ],

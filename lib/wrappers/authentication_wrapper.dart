@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:dicecash/screens/auth/login_page.dart';
+import 'package:dicecash/screens/profile/components/create_profile.dart';
 
 import 'package:flutter/material.dart';
 
 import '../screens/entrypoint/entrypoint_ui.dart';
 import '../services/authentication/authentication_service.dart';
+import '../services/database/user_database_helper.dart';
 
 //TODO: Commented Code
 class AuthenticationWrapper extends StatefulWidget {
@@ -35,7 +37,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     localStatus = await AuthenticationService().getLocalAuthStatus();
     return localStatus;
   }
-
+  var userData = false;
   @override
   Widget build(BuildContext context) {
     // log(_connectionStatus.name.toString());
@@ -46,10 +48,19 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
 
           if (snapshot.hasData) {
-            return const EntryPointUI();
+           UserDatabaseHelper().getUserDataFromId()?.then((value){
+             if(value.wyd != ''){
+               userData = true;
+           }
+
+            });
+
+           return !userData ? CreateProfile() : EntryPointUI();
+
+
           } else {
             if (localStatus == 'LoggedIn') {
-              return const EntryPointUI();
+              return const CreateProfile();
             } else {
               return const LoginPage();
             }

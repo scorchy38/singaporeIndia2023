@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "890911574760",
+    "firebase_url": "https://sih2023-bf0a3-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "sih2023-bf0a3",
     "storage_bucket": "sih2023-bf0a3.appspot.com"
   },
@@ -42,6 +43,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "890911574760-3is714uefk7453ghbpf37nfd7s2p295i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rayole.lucky.dice",
+            "certificate_hash": "8835762b750348990b24e0277309328d54dc5a5a"
+          }
+        },
+        {
+          "client_id": "890911574760-g07hn9kj5ub8albdfj1el7p5v0l1fj5v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rayole.lucky.dice",
+            "certificate_hash": "f2b809fa16c832360482f3381c49467594c5bd6a"
+          }
+        },
         {
           "client_id": "890911574760-6od2dsrcs6k24qggu9cf4di6tirq6gd2.apps.googleusercontent.com",
           "client_type": 3
